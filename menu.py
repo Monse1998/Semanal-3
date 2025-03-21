@@ -21,16 +21,16 @@ while True:
         print(f"{lista}")
         
     elif opcion == 2:
-        valor2 = input(f" ¿Que cancion desas agregar?")
+        valor2 = input(f" ¿Que cancion desas agregar?  ")
     
     elif opcion == 3:
-        valor3 = input(f" ¿Que cancion deseas elmininar? ")
+        valor3 = input(f" ¿Que cancion deseas elmininar?  ")
         
     elif opcion == 4:
-        valor4=print(f"¿Que cancion deseas modificar?")
+        valor4=print(f"¿Que cancion deseas modificar?  ")
     
     if opcion == 5:
-        valor5 = input(f"¿Que playlists deseas ver?")
+        valor5 = input(f"¿Que playlists deseas ver?  ")
         
     elif opcion == 6:
         valor6 = input(f" Hasta la otra...")
