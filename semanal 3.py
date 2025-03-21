@@ -18,7 +18,8 @@ while True:
     except ValueError:
         print("Error: Ingresa un número válido.")
         continue
-    
+
+# Opcion 1    
     if opcion == 1:
         while True:
             nombre_playlist = input("Ingresa el nombre de la nueva playlist: ")
@@ -32,7 +33,8 @@ while True:
             if a1 == '2':
                 print("Regresando al menú principal.")
                 break
-    
+
+# Opcion 2    
     elif opcion == 2:
         while True:
             playlist = input("¿A qué playlist deseas agregar una canción? ")
@@ -47,7 +49,8 @@ while True:
             if a1 == '2':
                 print("Regresando al menú principal.")
                 break
-    
+
+# Opcion 3    
     elif opcion == 3:
         while True:
             playlist = input("¿De qué playlist deseas eliminar una canción? ")
@@ -65,7 +68,8 @@ while True:
             if a1 == '2':
                 print("Regresando al menú principal.")
                 break
-    
+
+# Opcion 4    
     elif opcion == 4:
         while True:
             playlist = input("¿De qué playlist deseas modificar una canción? ")
@@ -85,7 +89,8 @@ while True:
             if a1 == '2':
                 print("Regresando al menú principal.")
                 break
-    
+
+# Opcion 5    
     elif opcion == 5:
         while True:
             if playlists:
@@ -103,7 +108,8 @@ while True:
             if a1 == '2':
                 print("Regresando al menú principal.")
                 break
-    
+            
+# Opcion 6    
     elif opcion == 6:
         print("Hasta la próxima...")
         break
