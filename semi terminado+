@@ -1,6 +1,6 @@
 print("Bienvenidos al Gestor de Playlists")
 
-
+# Diccionario para almacenar las playlists con sus canciones
 playlists = {}
 
 while True:
@@ -14,7 +14,7 @@ while True:
     opcion = input("Opción: ")
     
     try:
-        opcion = int(opcion)  
+        opcion = int(opcion)  # Casting de string a entero
     except ValueError:
         print("Error: Ingresa un número válido.")
         continue
