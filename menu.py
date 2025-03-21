@@ -14,25 +14,33 @@ while True:
     except ValueError:
         print("Error: Ingresa un número válido.")
         continue
-    
-    if opcion == 1:
-        valor1 = input(f"Ingresa el nombre de la nueva playlist")
-        lista.append(valor1)
-        print(f"{lista}")
+    while True:
+       if opcion == 1:
+           play = input(f"Ingresa el nombre de la nueva playlist:")
+           lista.append(play)
+           print(f"{play}")
+           a1=input(f"¿Desea agregar otra playlist? \n 1-si\n2.No")
+           if a1 == 1:
+               play = input(f"Ingresa el nombre de la nueva playlist:")
+               lista.append(play)
+           else a1==2
+           
+           
         
-    elif opcion == 2:
-        valor2 = input(f" ¿Que cancion desas agregar?")
-    
-    elif opcion == 3:
-        valor3 = input(f" ¿Que cancion deseas elmininar? ")
         
-    elif opcion == 4:
-        valor4=print(f"¿Que cancion deseas modificar?")
+       elif opcion == 2:
+           can = input(f" ¿Que cancion desas agregar?")
     
-    if opcion == 5:
-        valor5 = input(f"¿Que playlists deseas ver?")
+       elif opcion == 3:
+           elican = input(f" ¿Que cancion deseas elmininar? ")
         
-    elif opcion == 6:
+       elif opcion == 4:
+           modi=print(f"¿Que cancion deseas modificar?")
+    
+       if opcion == 5:
+           ver = input(f"¿Que playlists deseas ver?")
+         
+       elif opcion == 6:
         valor6 = input(f" Hasta la otra...")
     break
 else:
