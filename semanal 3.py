@@ -1,4 +1,4 @@
-print("Bienvenidos al Gestor de Playlists")
+print("Bienvenidos al Gestor de Playlists del equipo 3")
 
 
 playlists = {}

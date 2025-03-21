@@ -27,12 +27,26 @@ while True:
            
            
         
+<<<<<<< HEAD
         
        elif opcion == 2:
            can = input(f" ¿Que cancion desas agregar?")
     
        elif opcion == 3:
            elican = input(f" ¿Que cancion deseas elmininar? ")
+=======
+    elif opcion == 2:
+        valor2 = input(f" ¿Que cancion desas agregar?  ")
+    
+    elif opcion == 3:
+        valor3 = input(f" ¿Que cancion deseas elmininar?  ")
+        
+    elif opcion == 4:
+        valor4=print(f"¿Que cancion deseas modificar?  ")
+    
+    if opcion == 5:
+        valor5 = input(f"¿Que playlists deseas ver?  ")
+>>>>>>> 1b9bfc8111d069b12fff9f11cb1a9c23924da391
         
        elif opcion == 4:
            modi=print(f"¿Que cancion deseas modificar?")
