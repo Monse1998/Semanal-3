@@ -1,0 +1,142 @@
+import sys
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QLabel, QLineEdit, QHBoxLayout, QInputDialog
+
+class GestorPlaylists(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.playlists = {}
+
+        # Configuración de la ventana
+        self.setWindowTitle('Gestor de Playlists - Equipo 3')
+        self.setGeometry(100, 100, 400, 350)
+
+        # Layout principal
+        layout = QVBoxLayout()
+
+        # Título
+        self.title_label = QLabel("Bienvenidos al Gestor de Playlists del equipo 3", self)
+        layout.addWidget(self.title_label)
+
+        # Botones para las opciones
+        self.btn_create_playlist = QPushButton("1. Crear una Playlist", self)
+        self.btn_add_song = QPushButton("2. Agregar canción a una Playlist", self)
+        self.btn_remove_song = QPushButton("3. Eliminar canción de una Playlist", self)
+        self.btn_modify_song = QPushButton("4. Modificar información de una canción", self)
+        self.btn_view_playlists = QPushButton("5. Consultar Playlists", self)
+        self.btn_delete_playlist = QPushButton("6. Eliminar Playlist", self)  # Nueva opción
+        self.btn_exit = QPushButton("7. Salir", self)
+
+        # Conectar botones con sus funciones
+        self.btn_create_playlist.clicked.connect(self.crear_playlist)
+        self.btn_add_song.clicked.connect(self.agregar_cancion)
+        self.btn_remove_song.clicked.connect(self.eliminar_cancion)
+        self.btn_modify_song.clicked.connect(self.modificar_cancion)
+        self.btn_view_playlists.clicked.connect(self.consultar_playlists)
+        self.btn_delete_playlist.clicked.connect(self.eliminar_playlist)  # Conectar nuevo botón
+        self.btn_exit.clicked.connect(self.salir)
+
+        # Agregar botones al layout
+        layout.addWidget(self.btn_create_playlist)
+        layout.addWidget(self.btn_add_song)
+        layout.addWidget(self.btn_remove_song)
+        layout.addWidget(self.btn_modify_song)
+        layout.addWidget(self.btn_view_playlists)
+        layout.addWidget(self.btn_delete_playlist)  # Agregar nuevo botón
+        layout.addWidget(self.btn_exit)
+
+        # Label de resultado
+        self.result_label = QLabel("", self)
+        layout.addWidget(self.result_label)
+
+        # Establecer el layout
+        self.setLayout(layout)
+
+    def mostrar_resultado(self, mensaje):
+        self.result_label.setText(mensaje)
+
+    def crear_playlist(self):
+        nombre_playlist, ok = self._input_dialog("Nombre de la nueva playlist:")
+        if ok:
+            if nombre_playlist not in self.playlists:
+                self.playlists[nombre_playlist] = set()
+                self.mostrar_resultado(f"Playlist '{nombre_playlist}' creada.")
+            else:
+                self.mostrar_resultado(f"La playlist '{nombre_playlist}' ya existe.")
+
+    def agregar_cancion(self):
+        playlist, ok1 = self._input_dialog("¿A qué playlist deseas agregar una canción?")
+        if ok1 and playlist in self.playlists:
+            cancion, ok2 = self._input_dialog("¿Qué canción deseas agregar?")
+            if ok2:
+                self.playlists[playlist].add(cancion)
+                self.mostrar_resultado(f"La canción '{cancion}' ha sido agregada a la playlist '{playlist}'.")
+            else:
+                self.mostrar_resultado(f"No se ha ingresado ninguna canción.")
+        else:
+            self.mostrar_resultado(f"No existe la playlist '{playlist}'.")
+
+    def eliminar_cancion(self):
+        playlist, ok1 = self._input_dialog("¿De qué playlist deseas eliminar una canción?")
+        if ok1 and playlist in self.playlists:
+            cancion, ok2 = self._input_dialog("¿Qué canción deseas eliminar?")
+            if ok2 and cancion in self.playlists[playlist]:
+                self.playlists[playlist].remove(cancion)
+                self.mostrar_resultado(f"La canción '{cancion}' ha sido eliminada de la playlist '{playlist}'.")
+            else:
+                self.mostrar_resultado(f"La canción '{cancion}' no está en la playlist '{playlist}'.")
+        else:
+            self.mostrar_resultado(f"No existe la playlist '{playlist}'.")
+
+    def modificar_cancion(self):
+        playlist, ok1 = self._input_dialog("¿De qué playlist deseas modificar una canción?")
+        if ok1 and playlist in self.playlists:
+            cancion_actual, ok2 = self._input_dialog("¿Qué canción deseas modificar?")
+            if ok2 and cancion_actual in self.playlists[playlist]:
+                nueva_cancion, ok3 = self._input_dialog(f"Ingresa el nuevo nombre para '{cancion_actual}':")
+                if ok3:
+                    self.playlists[playlist].remove(cancion_actual)
+                    self.playlists[playlist].add(nueva_cancion)
+                    self.mostrar_resultado(f"La canción '{cancion_actual}' ha sido cambiada por '{nueva_cancion}' en la playlist '{playlist}'.")
+                else:
+                    self.mostrar_resultado(f"No se ingresó un nuevo nombre para la canción.")
+            else:
+                self.mostrar_resultado(f"La canción '{cancion_actual}' no está en la playlist '{playlist}'.")
+        else:
+            self.mostrar_resultado(f"No existe la playlist '{playlist}'.")
+
+    def consultar_playlists(self):
+        if self.playlists:
+            mensaje = "\nPlaylists y sus canciones:\n"
+            for playlist, canciones in self.playlists.items():
+                mensaje += f"Playlist: {playlist}\n  Canciones: {', '.join(canciones) if canciones else 'No hay canciones en esta playlist.'}\n"
+            self.mostrar_resultado(mensaje)
+        else:
+            self.mostrar_resultado("No tienes playlists creadas.")
+
+    def eliminar_playlist(self):
+        playlist, ok = self._input_dialog("¿Qué playlist deseas eliminar?")
+        if ok and playlist in self.playlists:
+            del self.playlists[playlist]
+            self.mostrar_resultado(f"La playlist '{playlist}' ha sido eliminada.")
+        else:
+            self.mostrar_resultado(f"No existe la playlist '{playlist}'.")
+
+    def salir(self):
+        self.close()
+
+    def _input_dialog(self, mensaje):
+        """Método para mostrar un cuadro de texto para la entrada del usuario"""
+        text, ok = QInputDialog.getText(self, "Entrada", mensaje)
+        return text, ok
+
+# Crear la aplicación
+app = QApplication(sys.argv)
+
+# Crear la ventana
+ventana = GestorPlaylists()
+
+# Mostrar la ventana
+ventana.show()
+
+# Ejecutar el bucle de eventos
+sys.exit(app.exec())
